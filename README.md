@@ -38,10 +38,21 @@
   - [ ] ...
 - [x] 不超过5个的待办
 
-### 历史
+### 历史[谷歌][2]
 
-- v1.0-beta 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目 ([1.0改版](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper))
-- [v2.0-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/Beta) 受到[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper)的启发，使用了配置文件。编程语言从`batch`变为`python`
-- [v3.0-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/v3.3.2-beta) 配置文件从txt变为json格式
+
+
+[2]: Google.com "一个还可以的搜索引擎"
+
+
+- [v1.0-beta][v1.0-beta] 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目 ([1.0改版][MC_resourcepacks_delHelper])
+- [v2.0-beta][v2.0-beta] 受到[MC_resourcepacks_delHelper][MC_resourcepacks_delHelper]的启发，使用了配置文件。编程语言从`batch`变为`python`
+- [v3.0-beta][v3.0-beta] 配置文件从txt变为json格式
 
 感谢[@槑头脑](https://github.com/Immortal-Sty)提出的程序架构最初设想
+
+[v1.0-beta]: https://github.com/LIBPS/Disable_Helper "被作者不小心删了"
+[v2.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/Beta "v2.0-beta项目链接"
+[v3.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/v3.3.2-beta "v3.0-beta项目链接"
+
+[MC_resourcepacks_delHelper]: https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版"

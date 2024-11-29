@@ -1,7 +1,7 @@
 # 禁用助手 - 使用说明
 
 v3.3-beta+ 配置文件结构:
-```json
+```text
 "display": 主界面
   "color": 一个字符串，颜色控制
 "actions": 操作

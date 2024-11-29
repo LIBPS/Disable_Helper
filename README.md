@@ -42,7 +42,7 @@
 
 - [v1.0-beta][v1.0-beta] 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目 ([1.0改版][MC_resourcepacks_delHelper])
 - [v2.0-beta][v2.0-beta] 受到[MC_resourcepacks_delHelper][MC_resourcepacks_delHelper]的启发，使用了配置文件。编程语言从`batch`变为`python`
-- [v3.0-beta][v3.0-beta] 配置文件从txt变为json格式
+- [v3.0-beta][v3.0-beta] 配置文件从txt变为json格式 (说来简单，我几乎把代码重写了，现在还有bug)
 
 感谢[@槑头脑](https://github.com/Immortal-Sty)提出的程序架构最初设想
 

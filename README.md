@@ -41,7 +41,7 @@
 ### 历史
 
 - v1.0-beta 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目 ([1.0改版](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper))
-- v2.0-beta 受到[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper)的启发，使用了配置文件。编程语言从batch变为python
-- v3.0-beta 配置文件从txt变为json格式
+- [v2.0-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/Beta) 受到[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper)的启发，使用了配置文件。编程语言从`batch`变为`python`
+- [v3.0-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/v3.3.2-beta) 配置文件从txt变为json格式
 
 感谢[@槑头脑](https://github.com/Immortal-Sty)提出的程序架构最初设想

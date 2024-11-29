@@ -38,12 +38,7 @@
   - [ ] ...
 - [x] 不超过5个的待办
 
-### 历史[谷歌][2]
-
-
-
-[2]: Google.com "一个还可以的搜索引擎"
-
+### 历史
 
 - [v1.0-beta][v1.0-beta] 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目 ([1.0改版][MC_resourcepacks_delHelper])
 - [v2.0-beta][v2.0-beta] 受到[MC_resourcepacks_delHelper][MC_resourcepacks_delHelper]的启发，使用了配置文件。编程语言从`batch`变为`python`

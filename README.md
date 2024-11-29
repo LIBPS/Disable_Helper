@@ -6,7 +6,7 @@
 ## v3.3.3-beta+ 配置文件结构:
 
 - display: 主界面
-  - color: 一个字符串，控制颜色，效果同batch的`color `。可选
+  - color: 一个字符串，控制颜色，效果同batch的`color`。可选
   - auto_next_line: 如果为真且`"text"`为数组那么在`"text"`每一项后加入`"\n"`。可选，默认否
   - text: 真正显示的内容。为一个数组或字符串。可以使用`"{version}"`显示禁用助手的版本
 - actions: 操作
@@ -38,4 +38,10 @@
   - [ ] ...
 - [x] 不超过5个的待办
 
-感谢[@槑头脑](https://github.com/Immortal-Sty)提出的程序架构[最初设想](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper)
+### 历史
+
+- v1.0-beta 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目 ([1.0改版](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper))
+- v2.0-beta 受到[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper)的启发，使用了配置文件。把编程语言从batch变为python
+- v3.0-beta 配置文件从txt变为json格式
+
+感谢[@槑头脑](https://github.com/Immortal-Sty)提出的程序架构最初设想

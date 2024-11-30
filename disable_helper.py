@@ -1,9 +1,10 @@
 import os
 import json
 import shutil
+#from tkinter import *
 
 global VERSION, DEFAULT_DATA
-VERSION = "v3.3.2-beta"
+VERSION = "v3.3.2-beta.1"
 DEFAULT_DATA = {'display': {'auto_next_line': False, 'color': '5', 'text': ['禁用助手 {version} - LIB临时工作室出品\n', '---------------------------------\n', '只是一个演示json配置文件是否可行的版本\n', '>']}, 'actions': {'1': {'end_output': "action '1' done\n", 'action': [{'type': 'disable', 'prefix': '', 'files': ['qwq']}, {'type': 'execute', 'code': ['for i in range(10):', '\tprint(i)']}, {'type': 'copy', 'prefix': '', 'source': ['qwq'], 'target': 'awa'}, {'type': 'delete', 'prefix': '', 'files': ['qwq']}]}}, 'lang': {'zh_cn': {'error_parse_config': '[错误] 解析配置文件时出现错误: {Error}\n删除配置文件可 能会解决此问题\n此输出无法在配置文件中更改', 'error_config_debug': '[错误] 引用配置文件时出现错误: {Error}\n\n删除配置文件可能会解决此问题\n按回车会试图复现并展示报错信息...\n', 'error_config_not_debug': '[错误] 引用配置文件时出现错误: {Error}\n\n删除配置文件可能会解决此问题\n按回车继续...\n', 'copy_file_not_found': '[错误] 项目不存在: {source_path}\n', 'copy_no_permission': '[错误] 无法复制或粘贴项目，权限不足: {source_path}\n', 'copy_succeeded': "[提示] 成功将 '{source_path}' 复制到 '{target_path}'\n", 'copy_unknown_error': '[错误] 复制项目时出现未知错误: {Error}\n', 'rename_file_not_found': '[错误] 项目不存在: {old_name}\n', 'rename_no_permission': '[错误] 无法重命名项目，权限不足: {old_name}\n', 'rename_succeeded': '[提示] 已重命名项目至 {new_name}\n', 'rename_unknown_error': '[错误] 重命名项目时出现未知错误: {Error}\n', 'delete_file_not_found': '[错误] 项目不存在: {file_path}\n', 'delete_no_permission': '[错误] 无法删除项目，权限不足: {file_path}\n', 'delete_succeeded': '[提示] 已删除项目 {file_path}\n', 'delete_unknown_error': '[错误] 重命名项目时出现未知错 误: {Error}\n', 'action_rename_complete': '[提示] 操作完成，启用了{enabled_assets_cnt}个项目，禁用了{disabled_assets_cnt}个项目。按回车继续...', 'action_copy_complete': '[提示] 操作完成，复制了项目，至{target_path}。按回车继续...', 'action_execute_complete': '[提示] 操作完成，运行了{run_code_cnt}行python代码。按回车继续...', 'action_delete_complete': '[提示] 操作完成，删了点东西懒得写了。按回车继续...', 'confirm_execute_code': '[提示] 你要执行的操作中包括运行未知的python代码 ，输入任意信息后按回车继续，按回车跳过该操作...', 'confirm_file_delete': '[提示] 你要执行的操作中包括删除文件，输入任意 信息后按回车继续，按回车跳过该操作...', 'file_not_found': '[错误] 项目不存在: {file}\n', 'skip_file': '[提示] 略过了：{file}\n', 'unknown_input': '[提示] 无效输入，请重试...', 'unknown_file_action': '[错误] 未知的文件操作: {action}。按回车 继续...'}}, 'settings': {'gui_mode': False, 'debug_mode': True, 'language': 'zh_cn', 'confirm_execute_code': True, 'confirm_file_delete': True}}
 
 def clear_screen():
@@ -19,8 +20,8 @@ def rename_assets(old_name, new_name, messages):
 		print(messages["rename_file_not_found"].format(old_name=old_name, new_name=new_name), end="")
 	except PermissionError:
 		print(messages["rename_no_permission"].format(old_name=old_name, new_name=new_name), end="")
-	except Exception as error:
-		print(messages["rename_unknown_error"].format(old_name=old_name, new_name=new_name, error=error), end="")
+	except Exception as Error:
+		print(messages["rename_unknown_error"].format(old_name=old_name, new_name=new_name, Error=Error), end="")
 
 def copy_assets(source_path, destination_path, messages):
 	try:
@@ -30,8 +31,8 @@ def copy_assets(source_path, destination_path, messages):
 		print(messages["copy_file_not_found"].format(source_path=source_path, destination_path=destination_path), end="")
 	except PermissionError:
 		print(messages["copy_no_permission"].format(source_path=source_path, destination_path=destination_path), end="")
-	except Exception as error:
-		print(messages["copy_unknown_error"].format(source_path=source_path, destination_path=destination_path, error=error), end="")
+	except Exception as Error:
+		print(messages["copy_unknown_error"].format(source_path=source_path, destination_path=destination_path, Error=Error), end="")
 
 def delete_assets(file_path, messages):
 	try:
@@ -41,11 +42,11 @@ def delete_assets(file_path, messages):
 		print(messages["delete_file_not_found"].format(file_path=file_path), end="")
 	except PermissionError:
 		print(messages["delete_no_permission"].format(file_path=file_path), end="")
-	except Exception as error:
-		print(messages["delete_unknown_error"].format(file_path=file_path, error=error), end="")
+	except Exception as Error:
+		print(messages["delete_unknown_error"].format(file_path=file_path, Error=Error), end="")
 
 
-def parse_config(config_file="禁用助手配置文件.json"):
+def parse_config(config_file="disable_helper_config.json"):
 	"""Parses the configuration file and creates a default if missing."""
 	# Load or create configuration
 	if not os.path.exists(config_file):
@@ -95,7 +96,7 @@ def process_files_execute(user_input, action, keys):
 
 def process_files_copy(action, keys):
 	prefix = action["prefix"]
-	files = action["source"]
+	files = action["files"]
 	target = action["target"]
 
 	for file in files:

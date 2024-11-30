@@ -13,7 +13,7 @@
   - action_name: 要在输入action_name时执行的东西
     - end_output: action_name执行完成后的输出。可选
     - action: 执行的东西。一个数组，其中每一项均为一个字典
-        - type: 操作类型。`copy`(有bug，只接受文件夹目录)、`delete`、`disable`、`execute`(仅安装python可用)
+        - type: 操作类型。`copy`、`delete`、`disable`、`execute`(仅安装python可用)
         - prefix: 为`files`每一项加上`prefix`
         - files: 一个列表，内有文件或文件夹的目录。操作为`execute`时可选
         - code: 一个列表，内有文件或文件夹的目录。

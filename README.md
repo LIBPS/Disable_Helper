@@ -1,14 +1,14 @@
 # 禁用助手 - 使用说明
 （简体中文-中国大陆 原文版本）
 ## 使用说明
-  pass
+  作者太懒还没有写。
 
 ## v3.3.2-beta.1+ 配置文件结构:
 
-- display: 主界面
-  - color: 一个字符串，控制颜色，效果同batch的`color`。可选
-  - auto_next_line: 如果为真且`text`为数组那么在`text`每一项后加入`"\n"`。可选，默认否
-  - text: 真正显示的内容。为一个数组或字符串。可以使用`"{version}"`显示禁用助手的版本
+- display：主界面
+  - color：一个字符串，控制颜色，效果同batch的`color`。可选
+  - auto_next_line：如果为真且`text`为数组那么在`text`每一项后加入`"\n"`。可选，默认否
+  - text：真正显示的内容。为一个数组或字符串。可以使用`"{version}"`显示禁用助手的版本
 - actions: 操作
   - action_name: 要在输入action_name时执行的东西
     - end_output: action_name执行完成后的输出。可选

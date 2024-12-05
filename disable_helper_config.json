@@ -1,15 +1,17 @@
 {
 	"display": {
-		"auto_next_line": false,
 		"color": "5",
 		"text": [
-			"禁用助手 {version} - LIB临时工作室出品\n",
-			"---------------------------------\n",
-			"只是一个演示json配置文件是否可行的版本\n",
+			"禁用助手 {version} - LIB临时工作室出品",
+			"---------------------------------",
+			"OOP架构测试中",
+			"---------------------------------",
+			"1.全部功能测试",
+			"---------------------------------",
 			">"
 		]
 	},
-	"actions": {
+	"action": {
 		"1": {
 			"end_output": "action '1' done\n",
 			"action": [
@@ -30,7 +32,7 @@
 				{
 					"type": "copy",
 					"prefix": "",
-					"source": [
+					"files": [
 						"qwq"
 					],
 					"target": "awa"
@@ -75,10 +77,9 @@
 		}
 	},
 	"settings": {
-		"gui_mode": false,
-		"debug_mode": true,
+		"debug_mode": false,
 		"language": "zh_cn",
-		"confirm_execute_code": true,
-		"confirm_file_delete": true
+		"confirm_execute_code": false,
+		"confirm_file_delete": false
 	}
 }

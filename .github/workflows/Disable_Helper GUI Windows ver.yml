@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Disable_Helper Windows ver.
+name: Disable_Helper Windows ver GUI.
 
 on:
   workflow_dispatch:
@@ -17,6 +17,6 @@ jobs:
         uses: sayyid5416/pyinstaller@v1
         with:
           python_ver: '3.12'
-          spec: 'disable_helper.py'
-          upload_exe_with_name: 'disable_helper'
+          spec: 'disable_helper_gui.py'
+          upload_exe_with_name: 'disable_helper_gui'
           options: --onefile, --name "disable_helper",  --windowed, 

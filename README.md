@@ -56,4 +56,4 @@
 
 [MC_resourcepacks_delHelper]: https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版"
 
-##### 最近更新:24/12/5
+##### 最近更新:24/12/6

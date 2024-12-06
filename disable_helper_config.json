@@ -18,13 +18,13 @@
 				{
 					"type": "disable",
 					"prefix": "",
-					"files": [
+					"assets": [
 						"qwq"
 					]
 				},
 				{
 					"type": "execute",
-					"code": [
+					"assets": [
 						"for i in range(10):",
 						"\tprint(i)"
 					]
@@ -32,15 +32,16 @@
 				{
 					"type": "copy",
 					"prefix": "",
-					"files": [
-						"qwq"
-					],
-					"target": "awa"
+					"assets": [
+						"source/1.txt",
+						"source/2.md",
+						"target"
+					]
 				},
 				{
 					"type": "delete",
 					"prefix": "",
-					"files": [
+					"assets": [
 						"qwq"
 					]
 				}
@@ -67,8 +68,8 @@
 			"action_rename_complete": "[提示] 操作完成，启用了{enabled_assets_cnt}个项目，禁用了{disabled_assets_cnt}个项目。按回车继续...",
 			"action_copy_complete": "[提示] 操作完成，复制了项目，至{target_path}。按回车继续...",
 			"action_execute_complete": "[提示] 操作完成，运行了{run_code_cnt}行python代码。按回车继续...",
-			"action_delete_complete": "[提示] 操作完成，删了点东西懒得写了。按回车继续...",
-			"confirm_execute_code": "[提示] 你要执行的操作中包括运行未知的python代码 ，输入任意信息后按回车继续，按回车跳过该操作...",
+			"action_delete_complete": "[提示] 操作完成，删了点东西，懒得写了。按回车继续...",
+			"confirm_execute_code": "[提示] 你要执行的操作中包括运行python代码，此操作可能无效，输入任意信息后按回车继续，按回车跳过该操作...",
 			"confirm_file_delete": "[提示] 你要执行的操作中包括删除文件，输入任意 信息后按回车继续，按回车跳过该操作...",
 			"file_not_found": "[错误] 项目不存在: {file}\n",
 			"skip_file": "[提示] 略过了：{file}\n",

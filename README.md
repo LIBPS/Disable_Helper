@@ -2,11 +2,9 @@
 
 ## 介绍
 材质包作者也可以将该脚本直接内置到材质包内，这样就可以省去维护“附加包”、“附减包”之类的麻烦了。
+**目前仍在测试阶段，经常大改**
 
-## 使用说明
-作者太懒还没有写。
-
-### 特点
+## 特点
 
 - **简易操作**：无需掌握编程，仅需基本的材质包知识。
 - **高扩展性**：支持多种操作类型，如复制、删除、禁用、以及代码执行（需要 Python 支持）。
@@ -15,8 +13,8 @@
 ---
 
 ## 使用方法
-1. 将 `禁用助手` 脚本和配置文件添加到你的材质包文件夹中。
-2. 编辑 `禁用助手配置文件.json`，根据需求定义需要管理的资源。
+1. 将禁用助手脚本和配置文件添加到你的材质包文件夹中。
+2. 编辑配置文件，根据需求定义需要管理的资源。
 3. 运行脚本并选择操作
 4. 根据提示输入功能以完成相应操作。
 
@@ -30,9 +28,8 @@
     - end_output: action_name执行完成后的输出。可选
     - action: 执行的东西。一个数组，其中每一项均为一个字典
         - type: 操作类型。`copy`、`delete`、`disable`、`execute`(仅安装python可用)
-        - prefix: 为`files`每一项加上`prefix`
-        - files: 一个列表，内有文件或文件夹的目录(目录中用"/"分隔)。操作为`execute`时可选
-        - code: 一个列表，字符串形式的`python`代码。操作不为`execute`时可选
+        - prefix: 为`assets`每一项加上`prefix`。可选
+        - assets: 一个列表，目前在此不做说明
 - lang: 文字
   - language: 语言，目前在此不做说明
 - settings: 设置(目前没啥用)
@@ -49,11 +46,9 @@
 - [ ] 使用§控制颜色及样式
 - [x] 不超过5个的待办
 
-### 历史
+### 友链
 
-- [v1.0-beta][v1.0-beta] 在[梧桐加减法交流群](https://pd.qq.com/s/1d83nni17)提出并制作了此项目
-- [v2.0-beta][v2.0-beta] 受到[MC_resourcepacks_delHelper][MC_resourcepacks_delHelper]的启发，使用了配置文件。编程语言从`batch`变为`python`
-- [v3.0-beta][v3.0-beta] 配置文件从txt变为json格式 ~~(说来简单，我几乎把代码重写了，现在还有bug)~~
+[Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper][MC_resourcepacks_delHelper]
 
 [v1.0-beta]: https://github.com/LIBPS/Disable_Helper "被作者不小心删了"
 [v2.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/Beta "v2.0-beta项目链接"
@@ -61,4 +56,4 @@
 
 [MC_resourcepacks_delHelper]: https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版"
 
-##### 最近更新:24/12/5
+##### 最近更新:24/12/6

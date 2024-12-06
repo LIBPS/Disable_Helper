@@ -1,10 +1,10 @@
 禁用助手配置文件
 - 更改了默认主界面
 - 默认配置文件重命名为`disable_helper_config.json`
-- `copy`操作的`source`键重命名为`files`
+- 文件操作中的`code`,`files`,`source`键重命名为`assets`，移除了`target`键
 - `actions`键重命名为`action`
 - 移除了`settings`中的`gui_mode`键
-- 移除了`display`中的`auto_next_line`键，并更改了`display`中`text`的逻辑]
+- 移除了`display`中的`auto_next_line`键，并更改了`display`中`text`的逻辑
 
 禁用助手
 - 未完成: 重写了代码 ~~(OOP - orz)~~

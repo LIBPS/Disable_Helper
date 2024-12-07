@@ -50,12 +50,11 @@
 
 ### 友链
 
-[Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper][MC_resourcepacks_delHelper]
+[Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版")
+[Cbscfe](https://github.com/BarbTurnip437)的[LIBPS官方网站](https://libps.github.io/Cbscfe/products)
 
 [v1.0-beta]: https://github.com/LIBPS/Disable_Helper "被作者不小心删了"
 [v2.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/Beta "v2.0-beta项目链接"
 [v3.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/v3.3.2-beta "v3.0-beta项目链接"
-
-[MC_resourcepacks_delHelper]: https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版"
 
 ##### 最近更新:24/12/6

@@ -19,7 +19,7 @@
 					"type": "disable",
 					"prefix": "",
 					"assets": [
-						"qwq"
+						"qwq.txt"
 					]
 				},
 				{
@@ -42,7 +42,7 @@
 					"type": "delete",
 					"prefix": "",
 					"assets": [
-						"qwq"
+						"qwq.md"
 					]
 				}
 			]

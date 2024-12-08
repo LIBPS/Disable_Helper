@@ -24,7 +24,7 @@
 
 - display: 主界面
   - color: 一个字符串，控制颜色，效果同batch的`color`。可选
-  - text: 真正显示的内容。为一个数组或字符串，如果为数组则在除了最后一项的每一项后加入`"\n"`。可以使用`"{version}"`显示禁用助手的版本
+  - text: 真正显示的内容。为一个数组或字符串，如果为数组则在除了最后一项的每一项后加入`"\n"`。可以使用`{%s}`显示禁用助手的版本
 - action: 操作
   - action_name: 要在输入action_name时执行的东西
     - end_output: action_name执行完成后的输出。可选
@@ -38,7 +38,7 @@
   - debug_mode：调试模式(在某些情况下引发崩溃)
   - language：在`lang`中调用的键名
   - confirm_execute_code：是否在执行`execute`操作前确认
-  - confirm_file_delete 是否在执行`delete`操作前确认
+  - confirm_file_delete 是否在执行`delete`操作前确
 
 ## 待办
 
@@ -48,13 +48,17 @@
 - [ ] 使用§控制颜色及样式
 - [x] 不超过5个的待办
 
+## 版本
+
++1		不看代码就看的出来的大更新
++0.1	看代码才看的出来的大更新
++0.0.1	用来看作者还在更新的更新
+
+-beta	测试中
+-dev	可能无法运行但不小心发上去了
+
 ### 友链
 
-[Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版")\
-[Cbscfe](https://github.com/BarbTurnip437)的[LIBPS官方网站](https://libps.github.io/Cbscfe/products)
+[Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版")
 
-[v1.0-beta]: https://github.com/LIBPS/Disable_Helper "被作者不小心删了"
-[v2.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/Beta "v2.0-beta项目链接"
-[v3.0-beta]: https://github.com/LIBPS/Disable_Helper/releases/tag/v3.3.2-beta "v3.0-beta项目链接"
-
-##### 最近更新:24/12/6
+##### 最近更新:24/12/7

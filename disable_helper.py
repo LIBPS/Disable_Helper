@@ -72,14 +72,10 @@ class Config:
 
 			self.lang = self.settings["language"]
 			self.keys = new_content["lang"][self.lang]
-
-	def output_key(self, key="unknown_input", function=print):
-		if key in self.keys:
-			function(self.keys[key])
 	
 	def process_command(self, user_input):
 		if not user_input in self.action:
-			self.output_key("unknown_input", input)
+			input(self.keys["unknown_input"])
 			return
 		
 		for action in self.action[user_input]["action"]:

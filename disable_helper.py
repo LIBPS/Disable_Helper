@@ -6,6 +6,18 @@ global VERSION, DEFAULT_DATA
 VERSION = "v3.4-beta.1  "
 DEFAULT_DATA = {'display': {'color': '5', 'text': ['禁用助手 {version} - LIB 临时工作室出品\n', '---------------------------------\n', '只是一个演示json配置文件是否可行的版本\n', '>']}, 'action': {'1': {'end_output': "action '1' done\n", 'action': [{'type': 'disable', 'prefix': '', 'files': ['qwq']}, {'type': 'execute', 'code': ['for i in range(10):', '\tprint(i)']}, {'type': 'copy', 'prefix': '', 'source': ['qwq'], 'target': 'awa'}, {'type': 'delete', 'prefix': '', 'files': ['qwq']}]}}, 'lang': {'zh_cn': {'error_parse_config': '[错误] 解析配置文件时出现错误: {Error}\n删除配置文件可 能会解决此问题\n此输出无法在配置文件中更改', 'error_config_debug': '[错误] 引用配置文件时出现错误: {Error}\n\n删除配置文件可能会解决此问题\n按回车会试图复现并展示报错信息...\n', 'error_config_not_debug': '[错误] 引用配置文件时出现错误: {Error}\n\n删除配置文件可能会解决此问题\n按回车继续...\n', 'copy_file_not_found': '[错误] 项目不存在: {source_path}\n', 'copy_no_permission': '[错误] 无法复制或粘贴项目，权限不足: {source_path}\n', 'copy_succeeded': "[提示] 成功将 '{source_path}' 复制到 '{target_path}'\n", 'copy_unknown_error': '[错误] 复制项目时出现未知错误: {Error}\n', 'rename_file_not_found': '[错误] 项目不存在: {old_name}\n', 'rename_no_permission': '[错误] 无法重命名项目，权限不足: {old_name}\n', 'rename_succeeded': '[提示] 已重命名项目至 {new_name}\n', 'rename_unknown_error': '[错误] 重命名项目时出现未知错误: {Error}\n', 'delete_file_not_found': '[错误] 项目不存在: {file_path}\n', 'delete_no_permission': '[错误] 无法删除项目，权限不足: {file_path}\n', 'delete_succeeded': '[提示] 已删除项目 {file_path}\n', 'delete_unknown_error': '[错误] 重命名项目时出现未知错 误: {Error}\n', 'action_rename_complete': '[提示] 操作完成，启用了{enabled_assets_cnt}个项目，禁用了{disabled_assets_cnt}个项目。按回车继续...', 'action_copy_complete': '[提示] 操作完成，复制了项目，至{target_path}。按回车继续...', 'action_execute_complete': '[提示] 操作完成，运行了{run_code_cnt}行python代码。按回车继续...', 'action_delete_complete': '[提示] 操作完成，删了点东西懒得写了。按回车继续...', 'confirm_execute_code': '[提示] 你要执行的操作中包括运行未知的python代码 ，输入任意信息后按回车继续，按回车跳过该操作...', 'confirm_file_delete': '[提示] 你要执行的操作中包括删除文件，输入任意 信息后按回车继续，按回车跳过该操作...', 'file_not_found': '[错误] 项目不存在: {file}\n', 'skip_file': '[提示] 略过了：{file}\n', 'unknown_input': '[提示] 无效输入，请重试...', 'unknown_file_action': '[错误] 未知的文件操作: {action}。按回车 继续...'}}, 'settings': {'gui_mode': False, 'debug_mode': True, 'language': 'zh_cn', 'confirm_execute_code': True, 'confirm_file_delete': True}}
 
+"""
+## 版本
+
++1		不看代码就看的出来的大更新
++0.1	看代码才看的出来的大更新(重新上传默认配置文件)
++0.0.1	用来看作者还在更新的更新
+
+-beta	测试中
+-dev	可能无法运行但不小心发上去了
+"""
+
+
 class App:
 	def __init__(self, ) -> None:
 		self.config = Config()
@@ -124,20 +136,20 @@ class Action:
             if os.path.exists(full_path):
                 new_name = full_path + ".disabled"
                 os.rename(full_path, new_name)
-                print(self.keys["rename_succeeded"].format(old_name=full_path, new_name=new_name))
+                print(self.keys["rename_succeeded"].format(old_name=full_path, new_name=new_name), end="")
                 disabled_assets_cnt += 1
             elif os.path.exists(full_path + ".disabled"):
                 new_name = full_path[:-9]  # Remove `.disabled`
                 os.rename(full_path + ".disabled", new_name)
-                print(self.keys["rename_succeeded"].format(old_name=full_path + ".disabled", new_name=new_name))
+                print(self.keys["rename_succeeded"].format(old_name=full_path + ".disabled", new_name=new_name), end="")
                 enabled_assets_cnt += 1
             else:
-                print(self.keys["file_not_found"].format(file=full_path))
+                print(self.keys["file_not_found"].format(file=full_path), end="")
 
         print(self.keys["action_rename_complete"].format(
             enabled_assets_cnt=enabled_assets_cnt,
             disabled_assets_cnt=disabled_assets_cnt
-        ))
+        ), end="")
 
     def execute_code(self):
         """
@@ -148,9 +160,9 @@ class Action:
 
         try:
             exec(code)
-            print(self.keys["action_execute_complete"].format(run_code_cnt=len(code_lines)))
+            print(self.keys["action_execute_complete"].format(run_code_cnt=len(code_lines)), end="")
         except Exception as e:
-            print(self.keys["rename_unknown_error"].format(error=str(e)))
+            print(self.keys["rename_unknown_error"].format(error=str(e)), end="")
 
     def copy_files(self):
         """
@@ -166,13 +178,13 @@ class Action:
 
             try:
                 shutil.copytree(source_path, target_path, dirs_exist_ok=True)
-                print(self.keys["copy_succeeded"].format(source_path=source_path, target_path=target_path))
+                print(self.keys["copy_succeeded"].format(source_path=source_path, target_path=target_path), end="")
             except FileNotFoundError:
-                print(self.keys["copy_file_not_found"].format(source_path=source_path))
+                print(self.keys["copy_file_not_found"].format(source_path=source_path), end="")
             except PermissionError:
-                print(self.keys["copy_no_permission"].format(source_path=source_path))
+                print(self.keys["copy_no_permission"].format(source_path=source_path), end="")
             except Exception as e:
-                print(self.keys["copy_unknown_error"].format(error=str(e)))
+                print(self.keys["copy_unknown_error"].format(error=str(e)), end="")
 
     def delete_files(self):
         """
@@ -189,13 +201,13 @@ class Action:
                     os.remove(full_path)
                 elif os.path.isdir(full_path):
                     shutil.rmtree(full_path)
-                print(self.keys["delete_succeeded"].format(file_path=full_path))
+                print(self.keys["delete_succeeded"].format(file_path=full_path), end="")
             except FileNotFoundError:
-                print(self.keys["delete_file_not_found"].format(file_path=full_path))
+                print(self.keys["delete_file_not_found"].format(file_path=full_path), end="")
             except PermissionError:
-                print(self.keys["delete_no_permission"].format(file_path=full_path))
+                print(self.keys["delete_no_permission"].format(file_path=full_path), end="")
             except Exception as e:
-                print(self.keys["delete_unknown_error"].format(error=str(e)))
+                print(self.keys["delete_unknown_error"].format(error=str(e)), end="")
 
 		
 

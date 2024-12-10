@@ -48,15 +48,6 @@
 - [ ] 使用§控制颜色及样式
 - [x] 不超过5个的待办
 
-## 版本
-
-+1		不看代码就看的出来的大更新
-+0.1	看代码才看的出来的大更新
-+0.0.1	用来看作者还在更新的更新
-
--beta	测试中
--dev	可能无法运行但不小心发上去了
-
 ### 友链
 
 [Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版")

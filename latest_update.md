@@ -1,10 +1,15 @@
 禁用助手配置文件
-- 更改了默认主界面
+- 更改了默认文字
 - 默认配置文件重命名为`disable_helper_config.json`
-- 文件操作中的`code`,`files`,`source`键重命名为`assets`，移除了`target`键
-- `actions`键重命名为`action`
-- 移除了`settings`中的`gui_mode`键
-- 移除了`display`中的`auto_next_line`键，并更改了`display`中`text`的逻辑
+- 更改了`display`中`text`的逻辑
+- 重命名了一些键
+  - `source`键重命名为`assets`
+  - `actions`键重命名为`action`
+- 移除了一些键
+  - 移除了`target`键
+  - 移除了`gui_mode`键
+  - 移除了`display`中的`auto_next_line`键，并
+  - 移除了一些报错(可能会加回来)
 
 禁用助手
 - 未完成: 重写了代码 ~~(OOP - orz)~~

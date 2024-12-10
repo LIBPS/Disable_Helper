@@ -1,6 +1,7 @@
 # 禁用助手 - LIB 临时工作室
 
 [简体中文](README.md) | [繁体中文](docs/README_zh-TC.md) | [ENGLISH](docs/README_EN.md)
+
 ## 介绍
 材质包作者也可以将该脚本直接内置到材质包内，这样就可以省去维护“附加包”、“附减包”之类的麻烦了。
 
@@ -36,10 +37,10 @@
 - lang: 文字
   - language: 语言，目前在此不做说明
 - settings: 设置(目前没啥用)
-  - debug_mode：调试模式(在某些情况下引发崩溃)
+  - debug_mode：调试模式(目前没啥用)
   - language：在`lang`中调用的键名
-  - confirm_execute_code：是否在执行`execute`操作前确认
-  - confirm_file_delete 是否在执行`delete`操作前确
+  - confirm_execute_code：是否在执行`execute`操作前确认(目前没啥用)
+  - confirm_file_delete 是否在执行`delete`操作前确(目前没啥用)
 
 ## 待办
 

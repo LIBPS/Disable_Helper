@@ -17,6 +17,6 @@ jobs:
         uses: sayyid5416/pyinstaller@v1
         with:
           python_ver: '3.12'
-          spec: 'disable_helper_gui.py'
-          upload_exe_with_name: 'disable_helper_gui'
+          spec: 'disable_helper.py'
+          upload_exe_with_name: 'disable_helper'
           options: --onefile, --name "disable_helper",  --windowed, 

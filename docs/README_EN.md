@@ -22,11 +22,6 @@ Disable Helper is a Python application that helps manage and execute various act
    git clone https://github.com/yourusername/disable_helper.git
    cd disable_helper
    ```
-2. Install the required dependencies:
-
-   ```sh
-   pip install -r requirements.txt
-   ```
 
 ## Usage
 

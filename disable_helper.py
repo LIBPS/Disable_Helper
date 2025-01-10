@@ -126,7 +126,7 @@ class Config:
         method_name = f"execute_{action_type}"
         method = getattr(self, method_name, None)
         if method:
-            logging.info(f"Executing action {action_type} from {action_file}")
+            logging.debug(f"Executing action {action_type} from {action_file}")
             try:
                 method(action, action_file)
             except Exception as e:
@@ -138,13 +138,13 @@ class Config:
     def execute_check(self, action, action_file):
         prefix = action.get("prefix", "")
         assets = [prefix + asset for asset in action.get("assets", [])]
-        logging.info(f"Checking assets: {assets}")
+        logging.debug(f"Checking assets: {assets}")
         if all(os.path.exists(asset) for asset in assets):
-            logging.info(f"All assets exist, executing 'true' actions")
+            logging.debug(f"All assets exist, executing 'true' actions")
             for sub_action in action.get("true", []):
                 self.execute_action(sub_action, action_file)
         else:
-            logging.info(f"Not all assets exist, executing 'false' actions")
+            logging.debug(f"Not all assets exist, executing 'false' actions")
             for sub_action in action.get("false", []):
                 self.execute_action(sub_action, action_file)
 
@@ -152,7 +152,7 @@ class Config:
         prefix = action.get("prefix", "")
         assets = [prefix + asset for asset in action.get("assets", [])]
         target = action.get("target", "")
-        logging.info(f"Copying assets: {assets} to target: {target}")
+        logging.debug(f"Copying assets: {assets} to target: {target}")
         for asset in assets:
             if os.path.exists(asset):
                 target_path = os.path.join(target, os.path.basename(asset))
@@ -161,7 +161,7 @@ class Config:
                     with open(asset, "rb") as src_file:
                         with open(target_path, "wb") as dst_file:
                             dst_file.write(src_file.read())
-                    logging.info(f"Copied {asset} to {target_path}")
+                    logging.debug(f"Copied {asset} to {target_path}")
                 except PermissionError as e:
                     logging.error(f"Permission denied while copying {asset} to {target_path}: {e}")
             else:
@@ -170,7 +170,7 @@ class Config:
     def execute_delete(self, action, action_file):
         prefix = action.get("prefix", "")
         assets = [prefix + asset for asset in action.get("assets", [])]
-        logging.info(f"Deleting assets: {assets}")
+        logging.debug(f"Deleting assets: {assets}")
         if self.settings["confirm_file_delete"]:
             confirm = messagebox.askyesno(
                 self.language_data["confirm_file_delete_title"],
@@ -183,7 +183,7 @@ class Config:
             if os.path.exists(asset):
                 try:
                     os.remove(asset)
-                    logging.info(f"Deleted {asset}")
+                    logging.debug(f"Deleted {asset}")
                 except PermissionError as e:
                     logging.error(f"Permission denied while deleting {asset}: {e}")
             else:
@@ -193,7 +193,7 @@ class Config:
         prefix = action.get("prefix", "")
         assets = [prefix + asset for asset in action.get("assets", [])]
         sync = action.get("sync", False)
-        logging.info(f"Renaming assets: {assets}")
+        logging.debug(f"Renaming assets: {assets}")
         all_disabled = all(os.path.exists(asset) for asset in assets)
         all_enabled = all(os.path.exists(asset + ".disabled") for asset in assets)
         
@@ -203,7 +203,7 @@ class Config:
                     new_name = asset + ".disabled"
                     try:
                         os.rename(asset, new_name)
-                        logging.info(f"Renamed {asset} to {new_name}")
+                        logging.debug(f"Renamed {asset} to {new_name}")
                     except PermissionError as e:
                         logging.error(f"Permission denied while renaming {asset} to {new_name}: {e}")
             elif all_enabled:
@@ -211,7 +211,7 @@ class Config:
                     new_name = asset
                     try:
                         os.rename(asset + ".disabled", new_name)
-                        logging.info(f"Renamed {asset + '.disabled'} to {new_name}")
+                        logging.debug(f"Renamed {asset + '.disabled'} to {new_name}")
                     except PermissionError as e:
                         logging.error(f"Permission denied while renaming {asset + '.disabled'} to {new_name}: {e}")
             else:
@@ -222,14 +222,14 @@ class Config:
                     new_name = asset + ".disabled"
                     try:
                         os.rename(asset, new_name)
-                        logging.info(f"Renamed {asset} to {new_name}")
+                        logging.debug(f"Renamed {asset} to {new_name}")
                     except PermissionError as e:
                         logging.error(f"Permission denied while renaming {asset} to {new_name}: {e}")
                 elif os.path.exists(asset + ".disabled"):
                     new_name = asset
                     try:
                         os.rename(asset + ".disabled", new_name)
-                        logging.info(f"Renamed {asset + '.disabled'} to {new_name}")
+                        logging.debug(f"Renamed {asset + '.disabled'} to {new_name}")
                     except PermissionError as e:
                         logging.error(f"Permission denied while renaming {asset + '.disabled'} to {new_name}: {e}")
                 else:
@@ -241,12 +241,12 @@ class Config:
         data = action.get("data", "")
         if isinstance(data, list):
             data = "\n".join(data)
-        logging.info(f"Rewriting assets: {assets} with data: {data}")
+        logging.debug(f"Rewriting assets: {assets} with data: {data}")
         for asset in assets:
             try:
                 with open(asset, "w", encoding="utf-8") as file:
                     file.write(data)
-                logging.info(f"While running {action_file}, rewrote {asset}")
+                logging.debug(f"While running {action_file}, rewrote {asset}")
             except PermissionError as e:
                 logging.error(f"Permission denied while rewriting {asset}: {e}")
 
@@ -255,7 +255,7 @@ class Config:
         msg = action.get("msg", "")
         if isinstance(msg, list):
             msg = "\n".join(msg)
-        logging.info(f"Logging message at level {level}: {msg}")
+        logging.debug(f"Logging message at level {level}: {msg}")
         if level == "debug":
             logging.debug(msg)
         elif level == "info":
@@ -274,7 +274,7 @@ class Config:
         msg = action.get("msg", "")
         if isinstance(msg, list):
             msg = "\n".join(msg)
-        logging.info(f"Showing message box at level {level}: {msg}")
+        logging.debug(f"Showing message box at level {level}: {msg}")
         if level == "info":
             messagebox.showinfo("Info", msg)
         elif level == "warning":
@@ -287,7 +287,7 @@ class Config:
     def execute_run(self, action, action_file):
         for sub_action_file in action.get("action", []):
             sub_action_path = os.path.join(self.settings["assets"], "disable_helper", "action", sub_action_file)
-            logging.info(f"Running sub-action file: {sub_action_file}")
+            logging.debug(f"Running sub-action file: {sub_action_file}")
             if os.path.exists(sub_action_path):
                 sub_actions = self.load_action_file(sub_action_file)
                 if not isinstance(sub_actions, list):
@@ -298,7 +298,7 @@ class Config:
                         self.execute_action(sub_action, sub_action_file)
                     else:
                         logging.error(f"Invalid sub-action format in {sub_action_file}: {sub_action}")
-                logging.info(f"Action {sub_action_file} executed successfully.")
+                logging.debug(f"Action {sub_action_file} executed successfully.")
             else:
                 logging.error(f"While running {action_file}, action file not found: {sub_action_path}")
 

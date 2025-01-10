@@ -1,0 +1,25 @@
+[{
+    "type": "log",
+    "level": "debug",
+    "msg": "这是一条演示信息"
+}, {
+    "type": "log",
+    "level": "info",
+    "msg": "这是一条演示信息"
+}, {
+    "type": "log",
+    "level": "warning",
+    "msg": "这是一条演示信息"
+}, {
+    "type": "log",
+    "level": "error",
+    "msg": "这是一条演示信息"
+}, {
+    "type": "log",
+    "level": "critical",
+    "msg": "这是一条演示信息"
+}, {
+    "type": "msgbox",
+    "level": "info",
+    "msg": "这是log操作, 用于输出日志\n有5种类型: debug, info, warning, error, critical"
+}]

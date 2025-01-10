@@ -1,4 +1,4 @@
-{
+[{
     "type": "run",
-    "action": ["__msgbox_run__.json"]
-}
+    "action": ["__run_msgbox__.json"]
+}]

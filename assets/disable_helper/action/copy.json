@@ -1,0 +1,13 @@
+[{
+    "type": "copy",
+    "prefix": "assets/demo/copy/",
+    "assets": [
+        "source_file",
+        "source_folder"
+    ],
+    "target": "assets/demo/copy/target"
+}, {
+    "type": "msgbox",
+    "level": "info",
+    "msg": "这是copy操作用于复制文件和文件夹\n(复制文件夹有点小问题, 请谨慎使用)"
+}]

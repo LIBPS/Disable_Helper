@@ -1,0 +1,5 @@
+[{
+    "type": "log",
+    "level": "info",
+    "msg": "每次打开时都会运行 '__start__.json'"
+}]

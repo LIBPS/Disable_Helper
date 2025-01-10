@@ -1,66 +1,114 @@
-# Disable_Helper - LIB Provisional Studio
+# Warning! This README is outdated!
 
-[简体中文](../README.md) | [繁体中文](README_zh-CN.md) | [ENGLISH](README_EN.md)
+# Disable Helper
 
-## Introduction
-Texture pack authors can also directly embed this script into their texture packs, which eliminates the hassle of maintaining "add-ons" and "subtraction packs".
-
-**Currently in the testing phase, with frequent major changes**\
-It is not recommended to download the code; instead, use the [Releases](https://github.com/LIBPS/Disable_Helper/releases) 
+Disable Helper is a Python application that helps manage and execute various actions based on configuration files. It uses `tkinter` for the GUI and supports actions like checking file existence, logging messages, copying files, and displaying message boxes.
 
 ## Features
 
-- **Easy Operation**: No programming knowledge is required, only basic texture pack knowledge is needed.
-- **High Extensibility**: Supports various operation types, such as copy, delete, disable, and code execution (requires Python support).
-- **Customizable Configuration**: The configuration file uses JSON format, which is easy to edit and extend.
+- Load configuration from `disable_helper_settings.json` and `pack.mcmeta`.
+- Execute actions defined in JSON files located in the `disable_helper/action` directory.
+- Supported actions:
+  - `check`: Check if files exist and execute corresponding actions.
+  - `log`: Log messages at different levels.
+  - `copy`: Copy files to a target directory.
+  - `msgbox`: Display message boxes with different levels.
 
----
+## Installation
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/yourusername/disable_helper.git
+   cd disable_helper
+   ```
+2. Install the required dependencies:
+
+   ```sh
+   pip install -r requirements.txt
+   ```
 
 ## Usage
-1. Add the Disable_Helper script and configuration file to your texture pack folder.
-2. Edit the configuration file to define the resources you need to manage according to your requirements.
-3. Run the script and select the operation.
-4. Follow the prompts to input the function to complete the corresponding operation.
 
-## v3.4-beta+ Configuration File Structure:
+1. Create a configuration file named [disable_helper_settings.json](http://_vscodecontentref_/1) in the same directory as the script. Example:
 
-- display: Main interface
-  - color: A string that controls the color, with the same effect as `color` in batch. Optional.
-  - text: The actual content displayed. It can be an array or a string; if it's an array, add `"\n"` after each item except the last one. You can use `{%s}` to display the version of Disable_Helper.
-- action: Operations
-  - action_name: What to execute when inputting action_name
-    - end_output: The output after action_name is executed. Optional.
-    - action: What to execute. An array where each item is a dictionary
-        - type: The type of operation. `copy`, `delete`, `disable`, `execute` (only available if Python is installed)
-        - prefix: Add `prefix` to each item of `assets`. Optional.
-        - assets: A list, which is not explained here at the moment.
-- lang: Text
-  - language: The language, which is not explained here at the moment.
-- settings: Settings (currently not very useful)
-  - debug_mode: Debug mode (may cause crashes in certain situations)
-  - language: The key name called in `lang`
-  - confirm_execute_code: Whether to confirm before executing `execute` operations
-  - confirm_file_delete: Whether to confirm before executing `delete` operations
+   ```json
+   {
+       "assets": "./assets",
+       "debug_mode": true,
+       "language": "zh_cn",
+       "confirm_file_delete": false,
+       "msgbox_action_done": true
+   }
+   ```
+2. Create a language file in the [lang](http://_vscodecontentref_/2) directory. Example (`zh_cn.json`):
 
-## To-Do
+   ```json
+   {
+       "window_title": "Disable Helper {version}",
+       "display": [
+           "Welcome to Disable Helper {version}!",
+           "---------------------------------",
+           "Please select an action to run."
+       ]
+   }
+   ```
+3. Create action files in the [action](http://_vscodecontentref_/3) directory. Example (`__start__.json`):
 
-- [ ] Complete documentation
-- [ ] Better default configuration files
-- [ ] GUI interface
-- [ ] Use § to control color and style
-- [x] No more than 5 to-dos
+   ```json
+   [
+       {
+           "type": "check",
+           "prefix": "awa",
+           "assets": ["qwq.md", "example.txt"],
+           "true": [
+               {
+                   "type": "log",
+                   "level": "info",
+                   "msg": "All files exist."
+               },
+               {
+                   "type": "copy",
+                   "prefix": "awa",
+                   "assets": ["qwq.md", "example.txt"],
+                   "target": "backup/"
+               },
+               {
+                   "type": "msgbox",
+                   "level": "info",
+                   "msg": "All files exist and have been copied to the backup directory."
+               }
+           ],
+           "false": [
+               {
+                   "type": "log",
+                   "level": "error",
+                   "msg": "One or more files are missing."
+               },
+               {
+                   "type": "msgbox",
+                   "level": "error",
+                   "msg": "One or more files are missing."
+               }
+           ]
+       },
+       {
+           "type": "log",
+           "level": "info",
+           "msg": "Action file executed successfully."
+       }
+   ]
+   ```
+4. Run the application:
 
-## Versioning
+   ```sh
+   python disable_helper.py
+   ```
 
-+1		A major update that is obvious without looking at the code
-+0.1	A major update that is only obvious when looking at the code
-+0.0.1	An update to show that the author is still updating
+## Logging
 
--beta	In testing
--dev	May not run but was accidentally published
+The application logs messages to [disable_helper.log](http://_vscodecontentref_/4). The log file is cleared each time the application starts.
 
-### Friends Links
+## License
 
-[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "A v1.0-beta revision") made by [Immortal-Sty](https://github.com/Immortal-Sty)
-
-##### Last Update: 24/12/7
+This project is licensed under the MIT License. See the [LICENSE](http://_vscodecontentref_/5) file for details.

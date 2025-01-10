@@ -1,219 +1,316 @@
 import os
 import json
-import shutil
+import logging
+import tkinter as tk
+from tkinter import messagebox
 
-global VERSION, DEFAULT_DATA
-VERSION = "v3.4-beta.1  "
-DEFAULT_DATA = {'display': {'color': '5', 'text': ['禁用助手 {version} - LIB 临时工作室出品\n', '---------------------------------\n', '只是一个演示json配置文件是否可行的版本\n', '>']}, 'action': {'1': {'end_output': "action '1' done\n", 'action': [{'type': 'disable', 'prefix': '', 'files': ['qwq']}, {'type': 'execute', 'code': ['for i in range(10):', '\tprint(i)']}, {'type': 'copy', 'prefix': '', 'source': ['qwq'], 'target': 'awa'}, {'type': 'delete', 'prefix': '', 'files': ['qwq']}]}}, 'lang': {'zh_cn': {'error_parse_config': '[错误] 解析配置文件时出现错误: {Error}\n删除配置文件可 能会解决此问题\n此输出无法在配置文件中更改', 'error_config_debug': '[错误] 引用配置文件时出现错误: {Error}\n\n删除配置文件可能会解决此问题\n按回车会试图复现并展示报错信息...\n', 'error_config_not_debug': '[错误] 引用配置文件时出现错误: {Error}\n\n删除配置文件可能会解决此问题\n按回车继续...\n', 'copy_file_not_found': '[错误] 项目不存在: {source_path}\n', 'copy_no_permission': '[错误] 无法复制或粘贴项目，权限不足: {source_path}\n', 'copy_succeeded': "[提示] 成功将 '{source_path}' 复制到 '{target_path}'\n", 'copy_unknown_error': '[错误] 复制项目时出现未知错误: {Error}\n', 'rename_file_not_found': '[错误] 项目不存在: {old_name}\n', 'rename_no_permission': '[错误] 无法重命名项目，权限不足: {old_name}\n', 'rename_succeeded': '[提示] 已重命名项目至 {new_name}\n', 'rename_unknown_error': '[错误] 重命名项目时出现未知错误: {Error}\n', 'delete_file_not_found': '[错误] 项目不存在: {file_path}\n', 'delete_no_permission': '[错误] 无法删除项目，权限不足: {file_path}\n', 'delete_succeeded': '[提示] 已删除项目 {file_path}\n', 'delete_unknown_error': '[错误] 重命名项目时出现未知错 误: {Error}\n', 'action_rename_complete': '[提示] 操作完成，启用了{enabled_assets_cnt}个项目，禁用了{disabled_assets_cnt}个项目。按回车继续...', 'action_copy_complete': '[提示] 操作完成，复制了项目，至{target_path}。按回车继续...', 'action_execute_complete': '[提示] 操作完成，运行了{run_code_cnt}行python代码。按回车继续...', 'action_delete_complete': '[提示] 操作完成，删了点东西懒得写了。按回车继续...', 'confirm_execute_code': '[提示] 你要执行的操作中包括运行未知的python代码 ，输入任意信息后按回车继续，按回车跳过该操作...', 'confirm_file_delete': '[提示] 你要执行的操作中包括删除文件，输入任意 信息后按回车继续，按回车跳过该操作...', 'file_not_found': '[错误] 项目不存在: {file}\n', 'skip_file': '[提示] 略过了：{file}\n', 'unknown_input': '[提示] 无效输入，请重试...', 'unknown_file_action': '[错误] 未知的文件操作: {action}。按回车 继续...'}}, 'settings': {'gui_mode': False, 'debug_mode': True, 'language': 'zh_cn', 'confirm_execute_code': True, 'confirm_file_delete': True}}
+VERSION = "v4.0-beta"
+LOG = "disable_helper.log"
+SETTINGS_FILE = "disable_helper_settings.json"
+DEFAULT_SETTINGS = {
+    "assets": "./assets",
+    "debug_mode": True,
+    "language": "zh_cn",
+    "confirm_file_delete": False,
+    "msgbox_action_done": True
+}
 
-"""
-## 版本
+# Clear the log file before setting up logging
+with open(LOG, 'w', encoding='utf-8') as file:
+    file.write('')
 
-+1		不看代码就看的出来的大更新
-+0.1	看代码才看的出来的大更新(重新上传默认配置文件)
-+0.0.1	用来看作者还在更新的更新
-
--beta	测试中
--dev	可能无法运行但不小心发上去了
-"""
-
+def setup_logging(debug_mode):
+    logging.basicConfig(
+        level=logging.DEBUG if debug_mode else logging.INFO,  # Set the log level
+        format="[%(asctime)s] [%(name)s/%(levelname)s]: %(message)s",  # Log format
+        handlers=[
+            logging.FileHandler(LOG, encoding="utf-8"),  # Write to a file with UTF-8 encoding
+        ]
+    )
 
 class App:
-	def __init__(self, ) -> None:
-		self.config = Config()
-	
-	def clear_screen(self): 
-		os.system("cls" if os.name == "nt" else "clear")
-	
-	def start(self):
-		if not os.path.exists(self.config.name):
-			self.config.gen_config()
-		self.config.parse_config()
+    def __init__(self, config):
+        self.config = config
+        self.language_data = config.language_data
+        self.root = tk.Tk()
+        self.root.title(self.language_data["window_title"].format(version=VERSION))
+        self.root.geometry("400x400")
+        self.create_widgets()
 
-		if "color" in self.config.display_raw:
-			os.system("color " + self.config.display_raw["color"])
-	
-	def main(self):
-		self.clear_screen()
-		user_input = input(self.config.display_text).strip()
+    def create_widgets(self):
+        display_text = "\n".join([line.format(version=VERSION) for line in self.language_data["display"]])
+        label = tk.Label(self.root, text=display_text)
+        label.pack(pady=20)
 
-		try:
-			self.config.process_command(user_input)
-		except Exception as Error:
-			# TODO
-			"""if settings["debug_mode"]:
-				if "error_config_debug" in keys:
-					input(keys["error_config_debug"].format(Error=Error))
-				else:
-					input(DEFAULT_DATA["lang"]["zh_cn"]["error_config_debug"])
-				process_command(user_input, actions, keys, settings)
-			else:
-				if "error_config_not_debug" in keys:
-					input(keys["error_config_not_debug"].format(Error=Error))
-				else:
-					input(DEFAULT_DATA["lang"]["zh_cn"]["error_config_not_debug"])"""
+        self.action_listbox = tk.Listbox(self.root)
+        self.action_listbox.pack(pady=10)
+
+        action_files = self.config.get_action_files()
+        for action_file in action_files:
+            self.action_listbox.insert(tk.END, action_file)
+
+        run_button = tk.Button(self.root, text=self.language_data["button_run_action"], command=self.run_selected_action)
+        run_button.pack(pady=10)
+
+    def run_selected_action(self):
+        selected_action = self.action_listbox.get(tk.ACTIVE) + ".json"
+        if selected_action:
+            try:
+                actions = self.config.load_action_file(selected_action)
+                if not isinstance(actions, list):
+                    raise ValueError(f"Action file {selected_action} does not contain a list.")
+                for action in actions:
+                    if isinstance(action, dict):
+                        self.config.execute_action(action, selected_action)
+                logging.info(f"Action {selected_action} executed successfully.")
+                if self.config.settings["msgbox_action_done"]:
+                    messagebox.showinfo("Info", self.language_data["msgbox_action_done_message"].format(action=selected_action))
+            except Exception as e:
+                logging.error(f"Error executing action {selected_action}: {e}")
+                messagebox.showerror("Error", f"An error occurred while executing the action: {e}")
+        else:
+            messagebox.showwarning("Warning", "No action selected.")
 
 class Config:
-	def __init__(self, file_content:dict=DEFAULT_DATA, file_name="disable_helper_config.json") -> None:
-		self.raw = file_content
-		self.name = file_name
+    def __init__(self, settings_file):
+        self.settings_file = settings_file
+        self.settings = self.load_config()
+        self.language_data = self.load_language_file()
 
-		self.display_raw = file_content["display"]
-		self.display_text = "\n".join(self.display_raw["text"]).format(version=VERSION)
-		self.settings = file_content["settings"]
-		self.action = file_content["action"]
-		self.lang = self.settings["language"]
-		self.keys = file_content["lang"][self.lang]
-		
-	
-	def gen_config(self, file_content:dict=DEFAULT_DATA):
-		with open(self.name, "w", encoding="utf-8") as f:
-			json.dump(file_content, f, indent="\t", ensure_ascii=False)
+    def load_config(self):
+        settings = DEFAULT_SETTINGS.copy()
+        
+        # Override with disable_helper_settings.json if it exists
+        if os.path.exists(self.settings_file):
+            with open(self.settings_file, "r", encoding="utf-8") as file:
+                settings_data = json.load(file)
+                settings.update(settings_data)
+        
+        setup_logging(settings["debug_mode"])
+        logging.info(f"Loaded configuration: {json.dumps(settings, indent=4, ensure_ascii=False)}")
+        return settings
 
-	def parse_config(self, file_name="disable_helper_config.json"):
-		with open(file_name, "r", encoding="utf-8") as f:
-			new_content = json.load(f)
-			self.raw = new_content
+    def load_language_file(self):
+        lang_file = os.path.join(self.settings["assets"], "disable_helper", "lang", f'{self.settings["language"]}.json')
+        if not os.path.exists(lang_file):
+            logging.error(f"Language file {lang_file} does not exist.")
+            exit(1)
+        with open(lang_file, "r", encoding="utf-8") as file:
+            language_data = json.load(file)
+        logging.info("Loaded language file")
+        logging.debug(f"Language file data: {json.dumps(language_data, indent=4, ensure_ascii=False)}")
+        return language_data
 
-			self.display_raw = new_content["display"]
-			self.display_text = "\n".join(self.display_raw["text"]).format(version=VERSION)
+    def get_action_files(self):
+        action_dir = os.path.join(self.settings["assets"], "disable_helper", "action")
+        if not os.path.exists(action_dir):
+            logging.error(f"Action directory {action_dir} does not exist.")
+            exit(1)
+        action_files = [os.path.splitext(f)[0] for f in os.listdir(action_dir) if f.endswith('.json') and not f.startswith("__")]
+        return action_files
 
-			self.settings = new_content["settings"]
-
-			self.action = new_content["action"]
-
-			self.lang = self.settings["language"]
-			self.keys = new_content["lang"][self.lang]
-	
-	def process_command(self, user_input):
-		if not user_input in self.action:
-			input(self.keys["unknown_input"])
-			return
-		
-		for action in self.action[user_input]["action"]:
-			action = Action(action, self.keys)
-			action.execute_action()
-
-		input(self.action[user_input]["end_output"] if "end_output" in self.action[user_input] else "")
-
-class Action:
-    def __init__(self, action_data, keys):
-        """
-        Initialize the Action class with action data and localized keys for messages.
-        """
-        self.action_data = action_data
-        self.keys = keys
-
-    def execute_action(self):
-        """
-        Executes the action based on its type.
-        """
-        action_type = self.action_data.get("type").lower()
-
-        if action_type == "disable":
-            return self.disable()
-        elif action_type == "execute":
-            return self.execute_code()
-        elif action_type == "copy":
-            return self.copy_files()
-        elif action_type == "delete":
-            return self.delete_files()
-        else:
-            print(self.keys["unknown_file_action"].format(action=action_type))
-            return None
-
-    def disable(self):
-        """
-        Renames files to enable/disable them by adding/removing `.disabled`.
-        """
-        prefix = self.action_data.get("prefix", "")
-        files = self.action_data.get("assets", [])
-        enabled_assets_cnt = 0
-        disabled_assets_cnt = 0
-
-        for file in files:
-            full_path = os.path.join(prefix, file)
-            if os.path.exists(full_path):
-                new_name = full_path + ".disabled"
-                os.rename(full_path, new_name)
-                print(self.keys["rename_succeeded"].format(old_name=full_path, new_name=new_name), end="")
-                disabled_assets_cnt += 1
-            elif os.path.exists(full_path + ".disabled"):
-                new_name = full_path[:-9]  # Remove `.disabled`
-                os.rename(full_path + ".disabled", new_name)
-                print(self.keys["rename_succeeded"].format(old_name=full_path + ".disabled", new_name=new_name), end="")
-                enabled_assets_cnt += 1
-            else:
-                print(self.keys["file_not_found"].format(file=full_path), end="")
-
-        print(self.keys["action_rename_complete"].format(
-            enabled_assets_cnt=enabled_assets_cnt,
-            disabled_assets_cnt=disabled_assets_cnt
-        ), end="")
-
-    def execute_code(self):
-        """
-        Executes Python code provided in the configuration.
-        """
-        code_lines = self.action_data.get("assets", [])
-        code = "\n".join(code_lines)
-
+    def load_action_file(self, action_file):
+        action_path = os.path.join(self.settings["assets"], "disable_helper", "action", action_file)
         try:
-            exec(code)
-            print(self.keys["action_execute_complete"].format(run_code_cnt=len(code_lines)), end="")
-        except Exception as e:
-            print(self.keys["rename_unknown_error"].format(error=str(e)), end="")
+            with open(action_path, "r", encoding="utf-8") as file:
+                actions = json.load(file)
+                logging.info(f"Loaded action file {action_file}")
+                logging.debug(f"Data inside {action_file}: {json.dumps(actions, indent=4, ensure_ascii=False)}")
+                return actions
+        except json.JSONDecodeError as e:
+            logging.error(f"Failed to decode JSON from file {action_file}: {e}")
+            return []
 
-    def copy_files(self):
-        """
-        Copies files or directories to the specified target.
-        """
-        prefix = self.action_data.get("prefix", "")
-        files = self.action_data.get("assets", [])
-        target = self.action_data.get("target", "")
-
-        for file in files:
-            source_path = os.path.join(prefix, file)
-            target_path = os.path.join(prefix, target, file)
-
+    def execute_action(self, action, action_file):
+        action_type = action.get("type")
+        method_name = f"execute_{action_type}"
+        method = getattr(self, method_name, None)
+        if method:
+            logging.info(f"Executing action {action_type} from {action_file}")
             try:
-                shutil.copytree(source_path, target_path, dirs_exist_ok=True)
-                print(self.keys["copy_succeeded"].format(source_path=source_path, target_path=target_path), end="")
-            except FileNotFoundError:
-                print(self.keys["copy_file_not_found"].format(source_path=source_path), end="")
-            except PermissionError:
-                print(self.keys["copy_no_permission"].format(source_path=source_path), end="")
+                method(action, action_file)
             except Exception as e:
-                print(self.keys["copy_unknown_error"].format(error=str(e)), end="")
+                logging.error(f"Error executing action {action_type} from {action_file}: {e}")
+                raise
+        else:
+            logging.error(f"Unknown action type in {action_file}: {action_type}")
 
-    def delete_files(self):
-        """
-        Deletes files or directories specified in the configuration.
-        """
-        prefix = self.action_data.get("prefix", "")
-        files = self.action_data.get("assets", [])
+    def execute_check(self, action, action_file):
+        prefix = action.get("prefix", "")
+        assets = [prefix + asset for asset in action.get("assets", [])]
+        logging.info(f"Checking assets: {assets}")
+        if all(os.path.exists(asset) for asset in assets):
+            logging.info(f"All assets exist, executing 'true' actions")
+            for sub_action in action.get("true", []):
+                self.execute_action(sub_action, action_file)
+        else:
+            logging.info(f"Not all assets exist, executing 'false' actions")
+            for sub_action in action.get("false", []):
+                self.execute_action(sub_action, action_file)
 
-        for file in files:
-            full_path = os.path.join(prefix, file)
+    def execute_copy(self, action, action_file):
+        prefix = action.get("prefix", "")
+        assets = [prefix + asset for asset in action.get("assets", [])]
+        target = action.get("target", "")
+        logging.info(f"Copying assets: {assets} to target: {target}")
+        for asset in assets:
+            if os.path.exists(asset):
+                target_path = os.path.join(target, os.path.basename(asset))
+                os.makedirs(os.path.dirname(target_path), exist_ok=True)
+                try:
+                    with open(asset, "rb") as src_file:
+                        with open(target_path, "wb") as dst_file:
+                            dst_file.write(src_file.read())
+                    logging.info(f"Copied {asset} to {target_path}")
+                except PermissionError as e:
+                    logging.error(f"Permission denied while copying {asset} to {target_path}: {e}")
+            else:
+                logging.error(f"While running {action_file}, file not found: {asset}")
 
+    def execute_delete(self, action, action_file):
+        prefix = action.get("prefix", "")
+        assets = [prefix + asset for asset in action.get("assets", [])]
+        logging.info(f"Deleting assets: {assets}")
+        if self.settings["confirm_file_delete"]:
+            confirm = messagebox.askyesno(
+                self.language_data["confirm_file_delete_title"],
+                self.language_data["confirm_file_delete_message"]
+            )
+            if not confirm:
+                logging.info("File deletion cancelled by user.")
+                return
+        for asset in assets:
+            if os.path.exists(asset):
+                try:
+                    os.remove(asset)
+                    logging.info(f"Deleted {asset}")
+                except PermissionError as e:
+                    logging.error(f"Permission denied while deleting {asset}: {e}")
+            else:
+                logging.error(f"While running {action_file}, file not found: {asset}")
+
+    def execute_rename(self, action, action_file):
+        prefix = action.get("prefix", "")
+        assets = [prefix + asset for asset in action.get("assets", [])]
+        sync = action.get("sync", False)
+        logging.info(f"Renaming assets: {assets}")
+        all_disabled = all(os.path.exists(asset) for asset in assets)
+        all_enabled = all(os.path.exists(asset + ".disabled") for asset in assets)
+        
+        if sync:
+            if all_disabled:
+                for asset in assets:
+                    new_name = asset + ".disabled"
+                    try:
+                        os.rename(asset, new_name)
+                        logging.info(f"Renamed {asset} to {new_name}")
+                    except PermissionError as e:
+                        logging.error(f"Permission denied while renaming {asset} to {new_name}: {e}")
+            elif all_enabled:
+                for asset in assets:
+                    new_name = asset
+                    try:
+                        os.rename(asset + ".disabled", new_name)
+                        logging.info(f"Renamed {asset + '.disabled'} to {new_name}")
+                    except PermissionError as e:
+                        logging.error(f"Permission denied while renaming {asset + '.disabled'} to {new_name}: {e}")
+            else:
+                logging.error("Assets are not in a consistent state for sync rename.")
+        else:
+            for asset in assets:
+                if os.path.exists(asset):
+                    new_name = asset + ".disabled"
+                    try:
+                        os.rename(asset, new_name)
+                        logging.info(f"Renamed {asset} to {new_name}")
+                    except PermissionError as e:
+                        logging.error(f"Permission denied while renaming {asset} to {new_name}: {e}")
+                elif os.path.exists(asset + ".disabled"):
+                    new_name = asset
+                    try:
+                        os.rename(asset + ".disabled", new_name)
+                        logging.info(f"Renamed {asset + '.disabled'} to {new_name}")
+                    except PermissionError as e:
+                        logging.error(f"Permission denied while renaming {asset + '.disabled'} to {new_name}: {e}")
+                else:
+                    logging.error(f"While running {action_file}, file not found: {asset}")
+
+    def execute_rewrite(self, action, action_file):
+        prefix = action.get("prefix", "")
+        assets = [prefix + asset for asset in action.get("assets", [])]
+        data = action.get("data", "")
+        if isinstance(data, list):
+            data = "\n".join(data)
+        logging.info(f"Rewriting assets: {assets} with data: {data}")
+        for asset in assets:
             try:
-                if os.path.isfile(full_path):
-                    os.remove(full_path)
-                elif os.path.isdir(full_path):
-                    shutil.rmtree(full_path)
-                print(self.keys["delete_succeeded"].format(file_path=full_path), end="")
-            except FileNotFoundError:
-                print(self.keys["delete_file_not_found"].format(file_path=full_path), end="")
-            except PermissionError:
-                print(self.keys["delete_no_permission"].format(file_path=full_path), end="")
-            except Exception as e:
-                print(self.keys["delete_unknown_error"].format(error=str(e)), end="")
+                with open(asset, "w", encoding="utf-8") as file:
+                    file.write(data)
+                logging.info(f"While running {action_file}, rewrote {asset}")
+            except PermissionError as e:
+                logging.error(f"Permission denied while rewriting {asset}: {e}")
 
-		
+    def execute_log(self, action, action_file):
+        level = action.get("level", "info").lower()
+        msg = action.get("msg", "")
+        if isinstance(msg, list):
+            msg = "\n".join(msg)
+        logging.info(f"Logging message at level {level}: {msg}")
+        if level == "debug":
+            logging.debug(msg)
+        elif level == "info":
+            logging.info(msg)
+        elif level == "warning":
+            logging.warning(msg)
+        elif level == "error":
+            logging.error(msg)
+        elif level == "critical":
+            logging.critical(msg)
+        else:
+            logging.error(f"Unknown log level in {action_file}: {level}")
+
+    def execute_msgbox(self, action, action_file):
+        level = action.get("level", "info").lower()
+        msg = action.get("msg", "")
+        if isinstance(msg, list):
+            msg = "\n".join(msg)
+        logging.info(f"Showing message box at level {level}: {msg}")
+        if level == "info":
+            messagebox.showinfo("Info", msg)
+        elif level == "warning":
+            messagebox.showwarning("Warning", msg)
+        elif level == "error":
+            messagebox.showerror("Error", msg)
+        else:
+            logging.error(f"Unknown message box level in {action_file}: {level}")
+
+    def execute_run(self, action, action_file):
+        for sub_action_file in action.get("action", []):
+            sub_action_path = os.path.join(self.settings["assets"], "disable_helper", "action", sub_action_file)
+            logging.info(f"Running sub-action file: {sub_action_file}")
+            if os.path.exists(sub_action_path):
+                sub_actions = self.load_action_file(sub_action_file)
+                if not isinstance(sub_actions, list):
+                    logging.error(f"Action file {sub_action_file} does not contain a list.")
+                    continue
+                for sub_action in sub_actions:
+                    if isinstance(sub_action, dict):
+                        self.execute_action(sub_action, sub_action_file)
+                    else:
+                        logging.error(f"Invalid sub-action format in {sub_action_file}: {sub_action}")
+                logging.info(f"Action {sub_action_file} executed successfully.")
+            else:
+                logging.error(f"While running {action_file}, action file not found: {sub_action_path}")
 
 if __name__ == "__main__":
-	main = App()
-	main.start()
-
-	while True:
-		main.main()
+    config = Config(SETTINGS_FILE)
+    start_actions = config.load_action_file("__start__.json")
+    if not isinstance(start_actions, list):
+        logging.error(f"Action file __start__.json does not contain a list.")
+    else:
+        for action in start_actions:
+            if isinstance(action, dict):
+                config.execute_action(action, "__start__.json")
+    logging.info("Action __start__.json executed successfully.")
+    app = App(config)
+    app.root.mainloop()

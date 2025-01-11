@@ -10,7 +10,7 @@ body:
     options:
     - label: "我已使用未打包版本尝试复现\n(如果 bug 仅在打包版本出现很大概率不会得到修复)"
       required: false
-    - label: "我已在 [Issues 页面](https://github.com/LIBPS/Disable_Helper/issues) 中搜索，确认了这一 Bug 未被提交过。"
+    - label: "我已在 [Issues 页面](https://github.com/LIBPS/Disable_Helper/issues) 中搜索，确认了这一 bbug 未被提交过。"
       required: true
 - type: textarea
   id: "yml-2"

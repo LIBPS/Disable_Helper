@@ -1,5 +1,5 @@
-name: "runtime error"
-description: "提示出现错误"
+name: "error"
+description: "其他错误"
 labels: [bug]
 body:
 - type: checkboxes
@@ -22,8 +22,8 @@ body:
 - type: textarea
   id: "yml-3"
   attributes:
-    label: 错误报告、日志
-    description: "上传 \"debug_mode\": true 的日志文件\n(如果你没有刻意更改, debug_mode 默认为 true)"
+    label: 错误报告
+    description: ""
     placeholder: "先点击这个文本框，然后再将文件直接拖拽到文本框中以上传。"
   validations:
     required: true

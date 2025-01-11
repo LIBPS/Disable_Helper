@@ -5,7 +5,7 @@
     "true": [{
         "type": "msgbox",
         "level": "info",
-        "msg": "这是check操作用于, 判断文件是否存在\n文件全部存在时执行'true'"
+        "msg": "这是check操作, 用于判断文件是否存在\n文件全部存在时执行'true'"
     }],
     "false": []
 }, {

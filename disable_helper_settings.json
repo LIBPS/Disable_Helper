@@ -1,6 +1,6 @@
 {
     "assets": "./assets",
-    "debug_mode": true,
+    "debug_mode": false,
     "language": "zh_cn",
     "confirm_file_delete": true,
     "msgbox_action_done": false

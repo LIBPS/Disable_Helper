@@ -1,4 +1,4 @@
-name: "bug"
+name: "运行 bug"
 description: "提示出现错误"
 labels: [bug]
 body:
@@ -8,7 +8,7 @@ body:
     label: "检查项"
     description: "请逐个检查下列项目 并勾选确认"
     options:
-    - label: "我已使用未打包版本尝试复现"
+    - label: "我已使用未打包版本尝试复现\n(如果 bug 仅在打包版本出现很大概率不会得到修复)"
       required: false
     - label: "我已在 [Issues 页面](https://github.com/LIBPS/Disable_Helper/issues) 中搜索，确认了这一 Bug 未被提交过。"
       required: true
@@ -23,7 +23,7 @@ body:
   id: "yml-3"
   attributes:
     label: 错误报告、日志
-    description: "上传 \"debug_mode\": true 的日志文件\n(如果你没有刻意更改, \"debug_mode\"默认为true)"
+    description: "上传 \"debug_mode\": true 的日志文件\n(如果你没有刻意更改, debug_mode 默认为 true)"
     placeholder: "先点击这个文本框，然后再将文件直接拖拽到文本框中以上传。"
   validations:
     required: true

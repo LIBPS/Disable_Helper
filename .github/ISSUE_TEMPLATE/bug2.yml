@@ -23,7 +23,7 @@ body:
   id: "yml-3"
   attributes:
     label: 错误报告
-    description: ""
+    description: "错误的截图"
     placeholder: "先点击这个文本框，然后再将文件直接拖拽到文本框中以上传。"
   validations:
     required: true

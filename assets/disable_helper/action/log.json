@@ -5,7 +5,7 @@
 }, {
     "type": "log",
     "level": "info",
-    "msg": "这是一条演示信息"
+    "msg": ["这是一条演示信息", "awa"]
 }, {
     "type": "log",
     "level": "warning",

@@ -1,4 +1,4 @@
-# Warning! This README is not suported and AI generate!
+# Warning! This README is not suported and AI generated!
 
 # Disable Helper
 

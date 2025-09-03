@@ -2,8 +2,8 @@
 
 ## v5.0-beta
 
-重启禁用助手开发\
-重新确立逻辑\
+重启禁用助手开发
+重新确立逻辑
 从命令行重做
 
 ### v4.0.3-beta
@@ -12,7 +12,7 @@
 
 ### v4.0.2-beta
 
-加入了菜单栏\
+加入了菜单栏
 放入了语言选择，空的UI设置，制作者名单和 bug 反馈跳转
 
 ### v4.0.1-beta
@@ -21,8 +21,8 @@ GUI 窗口由 `tinker`改为 `PyQt5`
 
 ## [v4.0-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/v4.0-beta)
 
-加入了 GUI 界面和日志\
-重新调整配置文件逻辑与结构\
+加入了 GUI 界面和日志
+重新调整配置文件逻辑与结构
 主要开发方式由人工开发转为AI
 
 ---
@@ -35,4 +35,4 @@ GUI 窗口由 `tinker`改为 `PyQt5`
 
 ### [v2.2.2-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/v2.2.2-beta)
 
-### [v1-beta 的改版 (几乎全改了 v1.0-beta 不长这样)](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "v1-beta 似乎被删掉了")
+### [v1.0-beta 的改版 (几乎全改了 v1.0-beta 不长这样)](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "v1-beta 似乎被删掉了")

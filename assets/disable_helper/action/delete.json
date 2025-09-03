@@ -1,9 +1,0 @@
-[{
-    "type": "msgbox",
-    "level": "info",
-    "msg": "这是delete操作, 用于删除文件\n'confirm_file_delete'设置为true时会弹出确认对话框"
-}, {
-    "type": "delete",
-    "prefix": "assets/demo/delete/",
-    "assets": ["trash"]
-}]

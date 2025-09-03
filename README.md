@@ -2,21 +2,17 @@
 
 [简体中文](README.md) | [繁体中文](docs/README_zh-TC.md) | [ENGLISH](docs/README_EN.md)
 
-
 ## 介绍
 
 材质包作者也可以将该脚本直接内置到材质包内，这样就可以省去维护“附加包”、“附减包”之类的麻烦了。
 
-**目前仍在测试阶段，经常大改**
+**目前仍在测试阶段，经常大改**\
 不建议下载代码，可以使用[Releases](https://github.com/LIBPS/Disable_Helper/releases)
 
-我们现在正在重新构思该软件的逻辑
+我们现在正在重新构思该软件的逻辑\
 目前 v5.0-beta 为空无法使用请谅解
 
-
 ---
-
-
 
 ## 使用方法
 
@@ -28,4 +24,4 @@
 
 [Immortal-Sty](https://github.com/Immortal-Sty)制作的[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版")
 
-##### 最近更新: 2025/09/3
+##### 最近更新: 2025/9/3

@@ -29,4 +29,4 @@
 
 [Releases]: https://github.com/LIBPS/Disable_Helper/releases
 [Immortal-Sty]: https://github.com/Immortal-Sty "@槑头脑"
-[MC_resourcepacks_delHelper]: https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个v1.0-beta的改版"
+[MC_resourcepacks_delHelper]: https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一个 v1.0-beta 的改版 (几乎全改了 v1.0-beta 不长这样)"

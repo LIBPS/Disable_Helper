@@ -33,4 +33,4 @@ GUI 窗口由 `tinker`改为 `PyQt5`
 
 ### [v2.2.2-beta](https://github.com/LIBPS/Disable_Helper/releases/tag/v2.2.2-beta)
 
-### [v1-beta 的改版](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "v1-beta 似乎被删掉了")
+### [v1-beta 的改版 (几乎全改了 v1.0-beta 不长这样)](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "v1-beta 似乎被删掉了")

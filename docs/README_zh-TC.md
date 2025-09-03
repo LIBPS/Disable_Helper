@@ -1,4 +1,4 @@
-# 警告！此README已过期
+# 警告！此README已过期且不受支持
 
 # 禁用助手 - LIB 臨時工作室
 
@@ -68,3 +68,4 @@
 [Immortal-Sty](https://github.com/Immortal-Sty)製作的[MC_resourcepacks_delHelper](https://github.com/Immortal-Sty/MC_resourcepacks_delHelper "一個v1.0-beta的改版")
 
 ##### 最近更新:24/12/9
+
